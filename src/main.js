@@ -14,13 +14,13 @@ function bytesToReadableFormat(bytes, decimals) {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
 
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + byteUnits[i];
-  }
+}
 
 async function analyzeFolder(folderPath) {
     const allSubFolders = await listFoldersInPath(folderPath);
     const nodeModuleFolder = allSubFolders.find(folder => folder === "node_modules");
     const otherFolders = allSubFolders.filter(folder => folder !== "node_modules");
-    
+
 
     let sizeOfNodeModule = nodeModuleFolder ? (await du(path.join(folderPath, nodeModuleFolder))) : 0;
     let sizeOfOtherFolders = 0;
@@ -56,6 +56,6 @@ export async function analyzePath(folderPath) {
     const listrTasks = new Listr(tasks);
     await listrTasks.run();
 
-    console.log("%s Analyzing path" + folderPath, chalk.green.bold('DONE'));
+    console.log("%s Analyzing path " + folderPath, chalk.green.bold('DONE'));
 }
 
